@@ -309,7 +309,7 @@ Determining th equivalence of expressions can be a very important thing in the c
 
 Another question one might be interested in is what expressions of Boolean Logic are always true or always false, no matter what assignment of values to variables you pick. An expression thats always true is called a "tautology", and one that is always false is a "contradiction"[^4].
 
-[^4] Contradiction is also used to describe two or more expressions that cannot all be true, or to describe th situation where one sentence always the opposite value of another sentence, as in "`A` contradicts `!A`". These relate to the idea of an always false expression in that if you conjoined all of them, you would get an expression that is always false.
+[^4]: Contradiction is also used to describe two or more expressions that cannot all be true, or to describe th situation where one sentence always the opposite value of another sentence, as in "`A` contradicts `!A`". These relate to the idea of an always false expression in that if you conjoined all of them, you would get an expression that is always false.
 
 An example of a tautology in Boolean Logic is the schema expression `?X | !(?X)`, which will always be true no matter choice of `?X` is, even if it's a big complicated expression. That tautology is called the Law of the Excluded Middle (LEM), where the "middle" here is a middle ground between truth and falsity. An example of a contradiction is `?X & !(?X)`, which is always false no matter the choice of `?X`[^5]. This is sometimes called the Law of Non-Contradiction (LNC), at least when its given as something that must not be provable (i.e., you might find people saying that a logic should not prove a contradiction, by which they mean this or any equivalent expression).
 
