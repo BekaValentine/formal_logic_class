@@ -1,8 +1,8 @@
 # Boolean Logic
 
-Most computery types know something of Boolean Logic, even if they don't know it under that name. Lots of folks have heard about logic gates, many programmers use logical operators and boolean expressions[^0]. The gist of it is very widely know. The specifics slightly less so, and so we'll go over it in depth to have common ground.
+Most computery types know something of Boolean Logic, even if they don't know it under that name. Lots of folks have heard about logic gates, many programmers use logical operators and boolean expressions[^1]. The gist of it is very widely know. The specifics slightly less so, and so we'll go over it in depth to have common ground.
 
-[^0]: In Boolean Logic, we call these things expressions as well as propositions, formulas, sentences, statements, sometimes terms. In more interesting logics, the terminology will shift around, and we'll only use some of these words.
+[^1]: In Boolean Logic, we call these things expressions as well as propositions, formulas, sentences, statements, sometimes terms. In more interesting logics, the terminology will shift around, and we'll only use some of these words.
 
 ## Boolean Values
 
@@ -194,9 +194,9 @@ And implication is
 
 There are many more logical operators, and you can fill out tables like this all sorts of ways, but these are the ones we're going to focus on.
 
-One note on conventions here: you might observe that the value rows of these tables are always sorted as if `f < t`. This isn't necessary, but it's common convention[^1].
+One note on conventions here: you might observe that the value rows of these tables are always sorted as if `f < t`. This isn't necessary, but it's common convention[^2].
 
-[^1]: It also means that when we think in binary terms, with 0s and 1s, the schematic variables end up counting out binary numbers -- 00, 01, 10, 11, etc. -- which is pleasing, but also pragmatic, because they therefore indicate also the row number. 00 is not just the values of `?X` and `?Y` in the first row of the table, that row's 0-based index is also 00 as a binary number! That fact, combined with the fact that the output of these tables is itself a single boolean value, means we can actually be clever and represent the entire table by a bit sequence where the i-th row's output is the i-th bit. If we used little-endian bytes, then the table for `&` is just `0001` which is binary for the number 1, and `|` is `0111` which is binary 7. These kinds of relationships turn out to be useful for implementations, and relating different aspects of logic to one another, and also are great fun to play with. It also lets is observe quite easily that for any n = 0, 1, 2, etc., there are precisely 2^n boolean logical operators with n inputs.
+[^2]: It also means that when we think in binary terms, with 0s and 1s, the schematic variables end up counting out binary numbers -- 00, 01, 10, 11, etc. -- which is pleasing, but also pragmatic, because they therefore indicate also the row number. 00 is not just the values of `?X` and `?Y` in the first row of the table, that row's 0-based index is also 00 as a binary number! That fact, combined with the fact that the output of these tables is itself a single boolean value, means we can actually be clever and represent the entire table by a bit sequence where the i-th row's output is the i-th bit. If we used little-endian bytes, then the table for `&` is just `0001` which is binary for the number 1, and `|` is `0111` which is binary 7. These kinds of relationships turn out to be useful for implementations, and relating different aspects of logic to one another, and also are great fun to play with. It also lets is observe quite easily that for any n = 0, 1, 2, etc., there are precisely 2^n boolean logical operators with n inputs.
 
 Having now explained the way we evaluate a particular logical expression in terms of the values of its parts, let's talk about how to evaluate a whole compound expression. Specifically, to methods: rewriting and table completion.
 
@@ -299,21 +299,21 @@ We could also use tables to ask when two expressions are equivalent. Rather than
 | t  |   f   | f  |   t   |    f    |     t      |       t        |
 | t  |   f   | t  |   f   |    t    |     f      |       f        |
 
-And hey, presto, the last two columns are identical, so for every assignment of values to variables, these two expressions have the same value. They're equivalent! This particular equivalence, in fact, is a well known distributive law, one of the two De Morgan laws[^2]. The other is the equivalence of `!(?X | ?Y)` and `!(?X) & !(?Y)`[^3].
+And hey, presto, the last two columns are identical, so for every assignment of values to variables, these two expressions have the same value. They're equivalent! This particular equivalence, in fact, is a well known distributive law, one of the two De Morgan laws[^3]. The other is the equivalence of `!(?X | ?Y)` and `!(?X) & !(?Y)`[^4].
 
-[^2]: De Morgan was a contemporary of Boole's, who used the newly invented Boolean Logic to prove a variety of interesting logical theorems.
+[^3]: De Morgan was a contemporary of Boole's, who used the newly invented Boolean Logic to prove a variety of interesting logical theorems.
 
-[^3]: You'll notice that the equivalences look very similar. In fact, they're exactly the same, except they have the `&` and `|` swapped. This is another example of a duality, and is the one that inspired a lot of people to become very interested in the notion of duality.
+[^4]: You'll notice that the equivalences look very similar. In fact, they're exactly the same, except they have the `&` and `|` swapped. This is another example of a duality, and is the one that inspired a lot of people to become very interested in the notion of duality.
 
 Determining th equivalence of expressions can be a very important thing in the context of applied logic. For instance, it might be cheaper to build a logic circuit that represents one expression over another. Another way that equivalences can be useful is in making the writing of logical expressions more convenient. For example, if `A & (B & C)` is equivalent to `(A & B) & C`, then it really doesnt matter which you write, and in fact we could just drop the parenthesis to avoid wasting ink. Indeed, they are equivalent and so we do usually drop parens. The same is true of `(A | B) | C` and `A | (B | C)`.
 
-Another question one might be interested in is what expressions of Boolean Logic are always true or always false, no matter what assignment of values to variables you pick. An expression thats always true is called a "tautology", and one that is always false is a "contradiction"[^4].
+Another question one might be interested in is what expressions of Boolean Logic are always true or always false, no matter what assignment of values to variables you pick. An expression thats always true is called a "tautology", and one that is always false is a "contradiction"[^5].
 
-[^4]: Contradiction is also used to describe two or more expressions that cannot all be true, or to describe th situation where one sentence always the opposite value of another sentence, as in "`A` contradicts `!A`". These relate to the idea of an always false expression in that if you conjoined all of them, you would get an expression that is always false.
+[^5]: Contradiction is also used to describe two or more expressions that cannot all be true, or to describe th situation where one sentence always the opposite value of another sentence, as in "`A` contradicts `!A`". These relate to the idea of an always false expression in that if you conjoined all of them, you would get an expression that is always false.
 
-An example of a tautology in Boolean Logic is the schema expression `?X | !(?X)`, which will always be true no matter choice of `?X` is, even if it's a big complicated expression. That tautology is called the Law of the Excluded Middle (LEM), where the "middle" here is a middle ground between truth and falsity. An example of a contradiction is `?X & !(?X)`, which is always false no matter the choice of `?X`[^5]. This is sometimes called the Law of Non-Contradiction (LNC), at least when its given as something that must not be provable (i.e., you might find people saying that a logic should not prove a contradiction, by which they mean this or any equivalent expression).
+An example of a tautology in Boolean Logic is the schema expression `?X | !(?X)`, which will always be true no matter choice of `?X` is, even if it's a big complicated expression. That tautology is called the Law of the Excluded Middle (LEM), where the "middle" here is a middle ground between truth and falsity. An example of a contradiction is `?X & !(?X)`, which is always false no matter the choice of `?X`[^6]. This is sometimes called the Law of Non-Contradiction (LNC), at least when its given as something that must not be provable (i.e., you might find people saying that a logic should not prove a contradiction, by which they mean this or any equivalent expression).
 
-[^5]: Keen observers will notice that the expression in LEM and the expression in LNC are similar but with `&`  and `|` swapped. These two also form a duality. You will also probably notice, with some thinking, that the one is equivalent to the negation of the other. It is true in general that if `?X` is a tautology, `!(?X)` is a contradiction, and vice versa.
+[^6]: Keen observers will notice that the expression in LEM and the expression in LNC are similar but with `&`  and `|` swapped. These two also form a duality. You will also probably notice, with some thinking, that the one is equivalent to the negation of the other. It is true in general that if `?X` is a tautology, `!(?X)` is a contradiction, and vice versa.
 
 Another interesting variation on the theme of equivalence is operator equivalence. We saw already that there are relationships between `&` and `|` under negation. It turns out that because of this equivalence, and also the equivalence `!(!(?X)) = ?X`, we can prove both that `?X & ?Y` is equivalent to `!(!(?X) | !(?Y))`, and also `?X | ?Y` is equivalent to `!(!(?X) & !(?Y))`. This means that we could, in principle, throw out either of the operators `&` and `|`, and still be able to express the same ideas. We could keep the symbol as syntactic sugar, of course, but we wouldn't need it as a primitive notion of Boolean Logic if we wanted to do without it. The same is true of the expression `?X -> ?Y`, which turns out to be equivalent to `!(?X) | ?Y`.
 
@@ -436,9 +436,9 @@ In Conjunctive Normal Form (CNF), all expressions are of built up from atoms at 
 
 ### Disjunctive Normal Form
 
-Similarly, we have Disjunctive Normal Form (DNF), which puts disjunctions outside conjunctions. DNF expressions all look like `(A & !B & C) | (!A & !C) | D | (E & F)`[^6]. This form has lots of rich connections to computation, and especially data types. It also has rich connections to the logic tables we described above.
+Similarly, we have Disjunctive Normal Form (DNF), which puts disjunctions outside conjunctions. DNF expressions all look like `(A & !B & C) | (!A & !C) | D | (E & F)`[^7]. This form has lots of rich connections to computation, and especially data types. It also has rich connections to the logic tables we described above.
 
-[^6]: Strictly speaking, `f` and `t` are also valid, but we only ever us them in isolate, never as part of a compound DNF expression. Though they might show up in compound expressions during the process of normalization.
+[^7]: Strictly speaking, `f` and `t` are also valid, but we only ever us them in isolate, never as part of a compound DNF expression. Though they might show up in compound expressions during the process of normalization.
 
 But before we get into that, lets look at how we derive the disjunctive normal forms for an arbitrary expression of Boolean Logic.
 
@@ -457,18 +457,18 @@ The final step is to repeatedly make use of the following two equivalences:
 1. `?X & (?Y | ?Z) = (?X & ?Y) | (?X & ?Z)`
 2. `(?X | ?Y) & ?Z = (?X & ?Z) | (?Y & ?Z)`
 
-These are distributive laws not unlike the mathematical laws relating addition and multiplication: `x * (y + z) = x * y + x * z` and `(x + y) * z = x * z + y * z`[^7]. These two equivalences let you push the conjunction down below a disjunction, further towards the logical variables where they need to be.
+These are distributive laws not unlike the mathematical laws relating addition and multiplication: `x * (y + z) = x * y + x * z` and `(x + y) * z = x * z + y * z`[^8]. These two equivalences let you push the conjunction down below a disjunction, further towards the logical variables where they need to be.
 
-[^7]: The reason why these laws look so similar is quite interesting, but well beyond the scope of these lecture notes.
+[^8]: The reason why these laws look so similar is quite interesting, but well beyond the scope of these lecture notes.
 
-A few more rules pertaining to `t` and `f` can be applied freely at any point, whenever possible[^8]:
+A few more rules pertaining to `t` and `f` can be applied freely at any point, whenever possible[^9]:
 
 1. Replace `?X & t` and `t & ?X` with just `?X`.
 2. Replace `?X | t` and `t | ?X` with just `t`.
 3. Replace `?X & f` and `f & ?X` with just `f`.
 4. Replace `?X | f` and `f | ?X` with just `?X`.
 
-[^8]: We have some more things that look like they should be dualities, and of course they are. Duality is verywhere in logic!
+[^9]: We have some more things that look like they should be dualities, and of course they are. Duality is verywhere in logic!
 
 All of these rules are based on equivalences, which you can prove easily enough with the tabular method.
 
@@ -631,7 +631,7 @@ And indeed, this is the truth table for the complex expression we started with! 
 
 Another use for disjunctive normal form is the reverse process. Given any arbitrary truth table, we can construct a logical formula in DNF as follows: ignore the rows where the whole formula is valued `f`. Translate each row as follows: if a variable is given as `t` then write down the variable, if it's `f`, write the negation of the variable, and then conjoin those. Then, after all rows are written like this, combine them all with disjunctin.
 
-For example, consider the random truth table[^9]:
+For example, consider the random truth table[^10]:
 
 | A | B | C | ??? |
 | - | - | - | --- |
@@ -644,7 +644,7 @@ For example, consider the random truth table[^9]:
 | t | t | f |  f  |
 | t | t | t |  t  |
 
-[^9]: Ok, it's not so random, if you convert the final column into a binary string you get 11001001, which is the title of Star Trek: The Next Generation's 15th episode, about little cyborg people who talk to each other in binary.
+[^10]: Ok, it's not so random, if you convert the final column into a binary string you get 11001001, which is the title of Star Trek: The Next Generation's 15th episode, about little cyborg people who talk to each other in binary.
 
 What is the logical expression for this truth table? I don't know. But let's find out!
 
