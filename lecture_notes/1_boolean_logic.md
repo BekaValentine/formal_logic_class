@@ -115,20 +115,49 @@ One final note on notation. Sometimes we'll want to talk about sentences in the 
 
 Now that we've given a precise definition of *what* the expressions of Boolean Logic are, we might well ask how we can use them. As mentioned above, there are many things one might want to do with these expressions, so let's start with the one kind that is most directly related to the fact that Boolean Logic is value-oriented, and that is evaluation. Since every expression is built up out of atomic sentences/logical variables which can be assigned truth values, and out of operators which can sort of combine truth values, we can assign to every expression its own truth value defined in terms of the truth values of the parts inside of it. This process is called evaluation, or evaluating an expression, or calculating and computing its value.
 
-We typically do this by explaining first what the values of the atomic sentences or logical variables are that we're starting with -- an assignment of truth values to logical variables. We also explain how the values of each individual syntactic form is computed -- usually by reference to the values of its parts. And then we calculate, in a bottom up fashion, the values of the various (sub)expressions that are relevant, until we've calculated the one we care about. The first part here -- assignments of values to variables -- is usually contingent on the specific macro-level problem we're interested in, while the second -- how the expressions build up values from parts -- is a fixed aspect of Boolean Logic. Because of this fixed-ness, we usually will specify those once, and then treat them as common knowledge and we never re-specify them. So, let's specify those now.
+We typically do this by explaining first what the values of the atomic sentences or logical variables are that we're starting with -- an assignment of truth values to logical variables. We also explain how the values of each individual syntactic form is computed -- usually by reference to the values of its parts. This is called a meaning explanation in certain parts of logic. And then we calculate, in a bottom up fashion, the values of the various (sub)expressions that are relevant, until we've calculated the one we care about. The first part here -- assignments of values to variables -- is usually contingent on the specific macro-level problem we're interested in, while the second -- how the expressions build up values from parts -- is a fixed aspect of Boolean Logic. Because of this fixed-ness, we usually will specify those once, and then treat them as common knowledge and we never re-specify them. So, let's specify those now.
 
-1. The boolean value of the expression `t` is true, which for the sake of notational simplicity will also be written `t`.
-2. The boolean value of the expression `f` is false, which likewise will be written just `f`.
-3. Given the expression `!(?X)`, if the value of `?X` is `t`, then the value of `!(?X)` is `f`, and if `?X` is `f` then `!(?X)` is `t`.
-4. Given the expression `?X & ?Y`, if the value of `?X` is `t`, and also the value of `?Y` is `t`, then the value of `?X & ?Y` is `t`, otherwise its value is `f`.
-5. Given the expression `?X | ?Y`, if the value of `?X` is `f`, and also the value of `?Y` is `f`, then the value of `?X | ?X` is `f`, otherwise its value is `t`.
-6. Given the expression `?X -> ?Y`, if the value of `?X` is `t`, and the value of `?Y` is `f`, then the value of `?X -> ?Y` is `f`, otherwise its value is `t`.
+1. The boolean value of the expression `t` is true.
+2. The boolean value of the expression `f` is false.
+3. Given an expression of the form `!(?X)`, if the value of `?X` is true, then the value of `!(?X)` is false, and if the value of `?X` is false then that of `!(?X)` is true.
+4. Given an expression of the form `?X & ?Y`, if the value of `?X` is true and also the value of `?Y` is true, then the value of `?X & ?Y` is true, otherwise its value is false.
+5. Given an expression of the form `?X | ?Y`, if the value of `?X` is false and also the value of `?Y` is false, then the value of `?X | ?X` is false, otherwise its value is true.
+6. Given an expression of the form `?X -> ?Y`, if the value of `?X` is true, and the value of `?Y` is false, then the value of `?X -> ?Y` is false, otherwise its value is true.
 
 There are a few things to observe here. One is the curious fact that the definitions for (3) and (4) look very similar but with some things swapped around. This is an intentional presentation choice, to highlight a phenomenon called duality, which we'll cover later in depth (!! OBLIGATIONs). But another thing to observe is that, gosh is this verbose! I mean it's fine, but its a lot of words. Usually what we'd do to make this easier to present is to give this information in the form of a table.
 
+Now how do we calculate with these meaning explanations? Suppose we want to know the value of the expression `(A | B) & C`, and we know that the value `A` has the value true, `B` has the value false, and `C` has the value true. Let's write out what we know as a list:
+
+1. The value of `A` is true
+2. The value of `B` is false
+3. The value of `C` is true
+
+We also have a meaning explanation for `|` which allows us to say that if the value of `A` is false and also `B` is false, the `A | B` is false, otherwise `A | B` is true. Well, the value of `A` is not false, it's true, and so the value of `A | B` must therefore also be true. So what we know now is
+
+1. The value of `A` is true
+2. The value of `B` is false
+3. The value of `C` is true
+4. The value of `A | B` is true
+
+Similarly, we have a meaning explanation for `&` which allows us to say that if the value of `A | B` is true, and the value of `C` is also true, then the value of `(A | B) & C` is true. Indeed, both these are the case, so `(A | B) & C` must therefore be true.
+
+1. The value of `A` is true
+2. The value of `B` is false
+3. The value of `C` is true
+4. The value of `A | B` is true
+5. The value of `(A | B) & C` is true
+
+And now at this point we have finally learned what the value of `(A | B) & C` is: it's true! The specific choice of meaning explanations that we made use of to derive this fact was made with the knowledge that this was indeed what we wanted to learn. We can, of course, make use of the meaning explanations to learn all sorts of things. For instance, it is of course also possible to extend our knowledge by using the meaning explanation for `&` to conclude that the value of `A & C` is true. This is not relevant to the value of `(A | B) & C`, but it is perfectly derivable from our meaning explanations and the assignments of values to `A`, `B`, and `C` that we gave.
+
+In general, we make use of meaning explanations to take knowledge we already have and extend it with knew knowledge. We can build up whatever knowledge we can in this way, and sometimes that knowledge is relevant to our problem. Clever focusing of what knowledge we choose to build up and in what order will make it easier to derive specific things of interest.
+
+### A Note On Values And Expressions
+
+So far, we've been talking about values, true and false, and we distinguish these from the expressions `t` and `f`. In some settings, it is possible to say that `t` and `f` *are* the boolean values, that the syntactic expressions are the values. In general, this isn't the case, but of course, since every expression of Boolean Logic has a value, and since the value of `t` is true and the value of `f` is false, we will often conflate these, especially for the sake of brevity. Later, when we talk about more complicated logics, this won't in fact be doable, but for now we'll make punning use of the syntax,
+
 ### Tabular Definitions
 
-One such tabular form has a single column labeled by each schematic variable of interest, and then another column for the whole operator expression. Each row below that represents choices for the values of the schematic variables (that is to say, possible values that the expressions represented by the schematic variable might have), together with the value of the whole expression given those values. For instance, here are the tables for negation and conjunction:
+As mentioned previously, the meaning explanations we give are often quite verbose, and sometimes it's useful to give shorter tabular representations. One such tabular form has a single column labeled by each schematic variable of interest, and then another column for the whole operator expression. Each row below that represents choices for the values of the schematic variables (that is to say, possible values that the expressions represented by the schematic variable might have), together with the value of the whole expression given those values. For instance, here are the tables for negation and conjunction:
 
 | ?X | !(?X) |
 | -- | ----- |
