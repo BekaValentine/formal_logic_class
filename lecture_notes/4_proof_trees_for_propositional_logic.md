@@ -233,6 +233,12 @@ A & B
 
 Actually more commonly, you'll find labels like "lemma 5" which refers to some proof done elsewhere. But sometimes it's indeed the case that you just take some propositions to be true for non-logical reasons and that's that.
 
+## Validity and Proof Trees
+
+We spoke previously about the notion of validity of a syllogistic argument, where we defined this to be that an argument is valid if whenever its premises are true, so too is its conclusion. In the context of proof trees, we have a refined notion: an argument/proof is valid just in case all of the inference rules that it uses are justified by truth tables, and are used correctly.
+
+In a context where we define a specific set of inference rules and assert that it "is" the logic in some sense, and drop all such appeals to truth tables, then we say that a proof is valid *in that logic* just in case it only uses the inference rules from that logic, and they're all used correctly.
+
 ## Hypothetical Proofs But Better
 
 The previous proof trees suffer from one big flaw: hypotheses are strewn about everywhere, they can magically appear when discharged, they can be repeated any number of types and treated as copies or not. It's sort of a mess. A convenient mess, to be sure! But still a bit of a mess. It works "fine" if you imagine yourself working top down, as if drawing conclusions from hypotheses and ultimately ending in a single big tree. But otherwise it's kind of bad.
