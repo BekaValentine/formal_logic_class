@@ -12,7 +12,7 @@ But what do we want to know about arguments? In the Aristotelian context, there 
 
 The second part is soundness. Soundness is like validity in that it is a property of an argument. In fact, it's a subcase of validity: an argument is said to be sound just in case it is valid *and also* the premises are true. This is a subtle distinction, here. Validity does not mean anything is in fact true, nor does it assume it. An argument can be valid even if the premises are false and the conclusion is false. Soundness, on the other hand, requires more: it requires that the premises must be *true*, and therefore the conclusion must also be true.
 
-Now, what good is this distinction? Why not just have one or the other? Well on the one hand, soundness matters because of course the point of an argument is often to determine or convince oneself of truths and it's no good reasoning all day if what you get out is that something *might* but true but it depends on things we don't know about. I want to know that I can make coffee because I'm sleep, it makes no difference whether I *could* make coffee if this and that and the other thing but actually I can't make coffee, I want to know *that* I can.
+Now, what good is this distinction? Why not just have one or the other? Well on the one hand, soundness matters because of course the point of an argument is often to determine or convince oneself of truths and it's no good reasoning all day if what you get out is that something *might* but true but it depends on things we don't know about. I want to know that I can make coffee because I'm sleepy, it makes no difference whether I *could* make coffee if this and that and the other thing but actually I can't make coffee, I want to know *that* I can.
 
 But on the other hand, we also can make quite a lot of use of validity because it lets us reveal false assumptions or erroneous thinking. You might think that you've reasoned soundly about your coffee maker and you've done all the things to make the premises true and so now they are, and yet the coffee just isn't getting made, what's wrong? Well if you know that the premises were true and you had the ground coffee in the basket and the water in the tank and so on, then it must be that the reasoning about what was relevant to making coffee that was the problem! The argument must not have been valid, so now you can go and figure out what the missing premise was so you can make your coffee. Validity lets you *debug*.
 
@@ -275,7 +275,7 @@ Similarly, `EIO-3` is translated as:
   all ?M are not ?P                  ?M ⊆ ?Pᶜ
   some ?M are ?S        becomes      ?M ∩∩ ?S
 ∴ some ?S are not ?P               ∴ ?S ∩∩ ?Pᶜ
-```
+````
 
 ## Conclusions for Aristotelian Logic
 
