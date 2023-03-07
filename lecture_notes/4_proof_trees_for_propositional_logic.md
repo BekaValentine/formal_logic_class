@@ -353,3 +353,106 @@ A !- A -> A      A !- A
 ```
 
 We proved that `A` holds, but only if we have the hypothesis `A` to begin with, which isn't what we were trying to prove. So it looks like we just can't make the wonky proof with strange hypothesis discharges correspond to any valid proofs using hypothetical judgements. At best we can construct some vaguely similar looking proofs, but they all prove rather boring entailments that need hypotheses, rather than than being able to just prove anything with no assumptions. And in the special case where `A` is actually the false proposition `F`, which should not be provable at all, well the only way to prove it is to assume it, so we don't actually have a real proof of `F`. We're safe from weirdness!
+
+## Some Notations for Proof Trees
+
+When we want to indicate with a proof tree that `B` follows from `A` in some unspecified steps, we usually write `A` then some dots below it down to `B`, like
+
+```
+A
+:
+:
+:
+B
+```
+
+If we want to name this unspecified proof, we give it a name to the right of the dots, as in
+
+```
+A
+:
+: P
+:
+B
+```
+
+This kind of notation can be used to describe patterns of inference, such as the general form of conditional proof, which is:
+
+```
+  ---- i
+   ?X
+    :
+    :
+   ?Y
+-------- cp(i)
+?X -> ?Y
+```
+
+Sometimes when we want to show multiple hypothesis above an otherwise unspecified proof, we'll put them next to each other above the dots, as in this notation for a proof that `C` follows from hypotheses `A` and `B`, but with the specifics omitted:
+
+```
+---i  ---j
+ A     B
+    :
+    :
+    :
+    C
+```
+
+Sometimes commas separate the hypotheses to make it clear that they are all together hypotheses of the same unspecified proof tree, rather than being in separate parts of the tree that are just visually close together. This is especially the case when we don't have discharged hypotheses yet:
+
+```
+A,B
+ :
+ :
+ :
+ C
+```
+
+IF there are many hypotheses, we can write horizontal dots too:
+
+```
+A ... B
+   :
+   :
+   :
+   C
+```
+
+These same dots can be used for proofs with hypothetical judgments, too, and in those cases we simply omit the higher-up parts of the proof entirely. So again, a proof that `B` follows from hypothesis `A` would be
+
+```
+  :
+  :
+  :
+A !- B
+```
+
+And if we named it:
+
+```
+  :
+  : P
+  :
+A !- B
+```
+
+With multiple hypotheses, it's even cleaner than the other notation:
+
+```
+     :
+     :
+     :
+A, B !- C
+```
+
+And with some unspecified hypotheses:
+
+```
+          :
+          :
+          :
+A, ..., B !- C
+```
+
+We often will align the vertical dots with the turnstile, tho it's not necessary.
