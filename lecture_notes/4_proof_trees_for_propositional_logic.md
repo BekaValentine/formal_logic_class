@@ -1,4 +1,4 @@
-# Propositional Logic Again
+# Proof Trees for Propositional Logic
 
 We saw in the last, rather long, note that there were a variety of proof methods we can use to do proofs about propositional logic and that they were especially well suited to different sorts of questions about propositions. Fitch style let us draw conclusions very nicely, including ones involving assumptions via conditional proofs. Tableaux let us analyze satisfiability, tautology, and contradiction conveniently. These particular proof methods can be used for all sorts of forms of logic, not just propositional logic, and so it's worth having at least some familiarity with them.
 
